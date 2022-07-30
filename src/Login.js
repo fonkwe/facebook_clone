@@ -8,11 +8,14 @@ import { actionTypes } from "./reducer";
 
 
 function Login() {
-  const [state, dispatch] = useStateValue;
+  const [ state, dispatch] = useStateValue;
     const SignIn = () => {
         // Sign In....
         signInWithPopup(auth, provider)
-        .then(result => {console.log(result)
+        .then((result) => { dispatch({
+          type: actionTypes.SET_USER,
+          user: result.user,
+        })
     }).catch((error) => alert(error.message));
     };
   return (

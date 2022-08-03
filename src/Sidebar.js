@@ -8,10 +8,10 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-import { useStateValue } from './stateProvider';
+import { useStateValue } from './StateProvider';
 
  function Sidebar() {
-  const [ {user}, dispatch] = useStateValue();
+  const [{ user }, ] = useStateValue();
   return (
     <div className='sidebar'>
         <SidebarRow src={user.photoURL} title={user.displayName} />

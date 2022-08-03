@@ -2,13 +2,13 @@ import React from 'react'
 import "./Login.css";
 import { auth, provider, signInWithPopup } from "./firebase";
 import { Button } from '@mui/material';
-import { useStateValue } from './stateProvider';
+import { useStateValue } from './StateProvider';
 import { actionTypes } from "./reducer";
  
 
 
 function Login() {
-  const [ state, dispatch] = useStateValue;
+  const [state, dispatch] = useStateValue; 
     const SignIn = () => {
         // Sign In....
         signInWithPopup(auth, provider)

@@ -3,13 +3,15 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import Feed from './Feed';
 import Login from './Login';
-import { useStateValue } from "./StateProvider";
+import  {useAuthState} from 'react-firebase-hooks/auth';
+import { auth } from './firebase';
 
 function App() {
-  const [{user},  ]= useStateValue();
+  const [session]  = useAuthState(auth);
   return (
     <div className="app">
-      {!user ? (<Login />) 
+
+      {!session ? (<Login />) 
       :(
         <>
          <Header />

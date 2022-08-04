@@ -11,17 +11,21 @@ import AddIcon from '@mui/icons-material/Add';
 import ForumIcon from '@mui/icons-material/Forum';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useStateValue } from './StateProvider';
+import {useAuthState} from 'react-firebase-hooks/auth';
+import { auth } from './firebase';
+import { signOut } from 'firebase/auth';
+
+
 
  function Header() {
-    const [{ user },] = useStateValue();
+    const [session] = useAuthState(auth);
   return (
     <div className="header">
         <div className="header_left">
             <img src="https://www.facebook.com/images/fb_icon_325x325.png" alt =""/>
             <div className="header_input">
                <SearchIcon />
-               <input placeHolder="Search Facebook" type="text" />
+               <input placeholder="Search Facebook" type="text" />
             </div>
             
         </div>
@@ -47,8 +51,8 @@ import { useStateValue } from './StateProvider';
 
         <div className="header_right">
             <div className="header_info">
-                <Avatar src={user.photoURL} />
-                <h4>{user.displayName}</h4>
+                <Avatar src={session.photoURL} onClick={() => {signOut(auth)}}   />
+                <h4>{session.displayName}</h4>
             </div>
             <IconButton>
                 <AddIcon />

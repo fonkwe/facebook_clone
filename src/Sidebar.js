@@ -8,13 +8,13 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-import { useStateValue } from './StateProvider';
+// import { useStateValue } from './StateProvider';
 
  function Sidebar() {
-  const [{ user }, ] = useStateValue();
+  // const [{ user }, ] = useStateValue();
   return (
     <div className='sidebar'>
-        <SidebarRow src={user.photoURL} title={user.displayName} />
+        {/* <SidebarRow src={user.photoURL} title={user.displayName} /> */}
         <SidebarRow Icon={ LocalHospitalIcon} title="COVID-19 Information Center"/>
         <SidebarRow Icon={ EmojiFlagsIcon} title="Pages"/>
         <SidebarRow Icon={ PeopleIcon} title="Friends"/>

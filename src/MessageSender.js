@@ -4,23 +4,23 @@ import "./messageSender.css";
 import VideocamIcon from '@mui/icons-material/Videocam';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
-import { useStateValue } from './StateProvider';
-import db from "./firebase";
-import firebase from 'firebase/compat/app';
+import {auth, db} from "./firebase";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
 function MessageSender() {
-    const [{ user }, ] = useStateValue();
+    const [session ] = useAuthState(auth);
     const [input, setInput] = useState("");
     const [imageUrl, setImageUrl] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-
-        db.collection('posts').add({
+         const docRef = collection(db,'posts')
+        await addDoc(docRef, { 
             message: input,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            profilePic: user.photoURL,
-            username: user.displayName,
+            timestamp: serverTimestamp(),
+            profilePic: session.photoURL,
+            username: session.displayName,
             image: imageUrl,
         })
 
@@ -30,10 +30,10 @@ function MessageSender() {
   return (
     <div className="messageSender">
         <div className="messageSender_top">
-            <Avatar src={user.photoURL} />
+            <Avatar src={session.photoURL} />
             <form>
                 <input value={input} onChange={ (e) => setInput(e.target.value)} className="messageSender_input" 
-                   placeholder={`What's on your Mind, ${user.displayName}` }/>
+                   placeholder={`What's on your Mind, ${session.displayName}` }/>
                 
                 <input value={imageUrl} onChange={ (e) => setImageUrl(e.target.value)} type="text" placeholder="Image URL(Optional)" />
                 <button onClick={handleSubmit} type="submit">

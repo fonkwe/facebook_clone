@@ -6,24 +6,28 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {useAuthState} from 'react-firebase-hooks/auth';
+import { auth } from './firebase';
 
 
-function Post({ profilePic, username, timestamp, message, image}) {
+function Post({id, data}) {
+    const [session] = useAuthState(auth);
   return (
     <div className="post">
         <div className="post_top">
-            <Avatar src={profilePic} className="post_avatar" />
+            <Avatar src={session.photoURL} className="post_avatar" />
             <div className="post_topInfo">
-              <h3>{ username }</h3>
-              <p>{new Date(timestamp?.toDate()).toUTCString()}</p>
+              <h3>{session.displayName }</h3>
+              <p>{new Date(data?.timestamp.toDate()).toUTCString()}</p>
             </div>
         </div> 
         <div className="post_bottom">
-            <p>{ message}</p>
+            <p>{data.message}</p>
         </div> 
 
         <div className="post_image">
-            <img src={image} alt="" />
+            <img src={data.image} alt="" />
+            
         </div> 
 
         <div className="post_options">
